@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -36,5 +37,8 @@ public class User {
     @Column(name = "role")
     private Role role;
 
+    // List < 어떤 틀을 가짐? > 변수명
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Article> articles;
 
 }

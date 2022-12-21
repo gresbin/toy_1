@@ -42,4 +42,8 @@ public class Article {
     @Column(name = "view")
     private int view;
 
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "uid")
+    private User user;
+
 }
