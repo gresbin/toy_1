@@ -33,4 +33,8 @@ public class InquiryReply {
     @CreatedDate
     private LocalDateTime upDate;
 
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "uid")
+    private User user;
+
 }

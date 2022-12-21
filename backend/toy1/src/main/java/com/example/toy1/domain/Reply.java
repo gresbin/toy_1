@@ -31,4 +31,9 @@ public class Reply {
     @Column(name = "up_date")
     @CreatedDate
     private LocalDateTime upDate;
+
+    @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY)
+    @JoinColumn(name = "uid")
+    private User user;
+
 }

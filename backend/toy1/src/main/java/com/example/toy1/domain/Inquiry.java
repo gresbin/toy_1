@@ -38,4 +38,9 @@ public class Inquiry {
 
     @Column(name = "tag")
     private InquiryTag tag;
+
+    @ManyToOne(targetEntity = User.class ,fetch = FetchType.LAZY)
+    @JoinColumn(name = "uid")
+    private User user;
+
 }
