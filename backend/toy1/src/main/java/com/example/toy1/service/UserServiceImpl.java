@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkId(String userid) {
         // user id로 검색 후 존재유무를 bool값으로 전달
-        Optional<User> entity = userRepository.findByUserId(userid);
+        Optional<User> entity = userRepository.findByUserid(userid);
         return entity.isPresent();
     }
 

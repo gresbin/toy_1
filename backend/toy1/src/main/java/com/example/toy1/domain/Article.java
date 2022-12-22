@@ -43,7 +43,7 @@ public class Article {
     private int view;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "user_uid")
     private User user;
 
 }

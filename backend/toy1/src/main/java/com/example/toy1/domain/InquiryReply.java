@@ -34,7 +34,7 @@ public class InquiryReply {
     private LocalDateTime upDate;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "user_uid")
     private User user;
 
 }
