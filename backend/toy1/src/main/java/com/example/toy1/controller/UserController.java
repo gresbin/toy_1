@@ -1,6 +1,8 @@
 package com.example.toy1.controller;
 
 import com.example.toy1.dto.exception.common.InvalidParameterException;
+import com.example.toy1.dto.exception.user.DuplicateIdException;
+import com.example.toy1.dto.exception.user.DuplicateNicknameException;
 import com.example.toy1.dto.user.SignUpRequestDto;
 import com.example.toy1.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
