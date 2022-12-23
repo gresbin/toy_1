@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(
                         "/api/v1/**/auth/**",
-                        "/v2/api-docs",
+                        "/v3/api-docs",
                         "/swagger-resources",
                         "/swagger-resources/**",
                         "/configuration/ui",
@@ -78,6 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.httpFirewall(new DefaultHttpFirewall())
                 .ignoring()
-                .antMatchers("/h2-console/**", "/swagger-ui/**");
+                .antMatchers("/h2-console/**", "/v3/api-docs", "/v3/api-docs/**", "/swagger-ui/**");
     }
 }
