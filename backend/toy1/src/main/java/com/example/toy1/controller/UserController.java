@@ -5,9 +5,9 @@ import com.example.toy1.dto.exception.user.DuplicateIdException;
 import com.example.toy1.dto.exception.user.DuplicateNicknameException;
 import com.example.toy1.dto.user.SignUpRequestDto;
 import com.example.toy1.service.UserService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,7 @@ public class UserController {
     @PostMapping("/auth/signup")
     @ApiOperation(value = "회원가입", notes = "회원정보를 통해 회원을 추가한다.")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Success")
+            @ApiResponse(code = 200, message = "Success")
     })
     public ResponseEntity<String> signup(@Valid @RequestBody SignUpRequestDto requestDto, BindingResult result) {
         if (result.hasErrors()) {
