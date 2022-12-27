@@ -12,6 +12,7 @@ import javax.validation.constraints.Pattern;
 @Data
 @Builder
 @AllArgsConstructor
+@ApiModel(value = "SignUpRequestDto", description = "회원가입 요청 Dto")
 public class SignUpRequestDto {
     @NotBlank(message = "아이디는 필수입니다.")
     private String id;

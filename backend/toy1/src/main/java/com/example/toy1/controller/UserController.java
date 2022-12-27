@@ -27,7 +27,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/auth/signup")
-    @Operation(summary = "회원가입", description = "회원정보를 통해 회원을 추가한다.")
+    @ApiOperation(value = "회원가입", notes = "회원정보를 통해 회원을 추가한다.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Success")
     })
