@@ -23,7 +23,7 @@ public class User {
     private Long uid;
 
     @Column(name = "user_id")
-    private String userid;
+    private String userId;
 
     @Column(name = "user_pw")
     private String pw;
@@ -37,6 +37,9 @@ public class User {
     @Column(name = "role")
     private Role role;
 
+    @Column(name = "token")
+    private String token;
+
     // List < 어떤 틀을 가짐? > 변수명
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Article> articles;
@@ -49,4 +52,8 @@ public class User {
 
     @OneToMany(mappedBy = "user" , fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<InquiryReply> InquiryReplies;
+
+    public void saveToken(String token) {
+        this.token = token;
+    }
 }

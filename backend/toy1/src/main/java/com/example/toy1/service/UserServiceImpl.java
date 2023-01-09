@@ -2,10 +2,17 @@ package com.example.toy1.service;
 
 import com.example.toy1.domain.User;
 import com.example.toy1.domain.enums.Role;
+import com.example.toy1.dto.TokenDto;
+import com.example.toy1.dto.user.LoginRequestDto;
 import com.example.toy1.dto.user.SignUpRequestDto;
+import com.example.toy1.jwt.TokenProvider;
 import com.example.toy1.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +26,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final TokenProvider tokenProvider;
 
     @Override
     public void signup(SignUpRequestDto dto) {
         // User 클래스 틀에 맞춰 값 집어넣기
         User user = User.builder()
-                .userid(dto.getId())
+                .userId(dto.getId())
                 .pw(passwordEncoder.encode(dto.getPw()))
                 .email(dto.getEmail())
                 .nickname(dto.getNickname())
@@ -41,9 +50,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkId(String userid) {
+    public boolean checkId(String userId) {
         // user id로 검색 후 존재유무를 bool값으로 전달
-        Optional<User> entity = userRepository.findByUserid(userid);
+        Optional<User> entity = userRepository.findByUserId(userId);
         return entity.isPresent();
     }
 
@@ -52,5 +61,34 @@ public class UserServiceImpl implements UserService {
         // user nickname으로 검색 후 존재유무를 bool값으로 전달
         Optional<User> entity = userRepository.findByNickname(nickname);
         return entity.isPresent();
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        Optional<User> entity = userRepository.findByEmail(email);
+        return entity.isPresent();
+    }
+
+    @Override
+    public TokenDto doLogin(LoginRequestDto loginDto) {
+        // 아이디와 비밀번호로 AuthenticationToken 생성
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(loginDto.getUserId(), loginDto.getPw());
+
+        // CustomUserDetailsService의 loadByUserName실행
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // 인증 정보 기반으로 JWT 토큰 생성
+        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
+
+        // RefreshToken 저장
+        Optional<User> entity = userRepository.findByUserId(authentication.getName());
+        if (entity.isPresent()) {
+            entity.get().saveToken(tokenDto.getRefreshToken());
+            userRepository.save(entity.get());
+        }
+
+        return tokenDto;
     }
 }

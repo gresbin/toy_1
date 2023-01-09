@@ -41,13 +41,13 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public TokenDto generateTokenDto(String email, String authorities) {
+    public TokenDto generateTokenDto(String userId, String authorities) {
         long now = (new Date()).getTime();
 
         // Access Token
         Date accessTokenExpiresIn = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         String accessToken = Jwts.builder()
-                .setSubject(email) // sub : name(email) - 토큰을 발급받는 사람
+                .setSubject(userId) // sub : name(email) - 토큰을 발급받는 사람
                 .claim(AUTHORITIES_KEY, authorities) // auth: ROLE - 토큰을 발급받는 사람의 역할
                 .setExpiration(accessTokenExpiresIn) // exp: ~~~ - 만료 기간
                 .signWith(key, SignatureAlgorithm.HS512) // algo: HS512 - 암호화 알고리즘
