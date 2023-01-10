@@ -39,7 +39,7 @@ public class Article {
     @Column(name = "tag")
     private ArticleTag tag;
 
-    @Column(name = "view")
+    @Column(name = "views")
     private int view;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
