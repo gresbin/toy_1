@@ -1,5 +1,6 @@
 package com.example.toy1.service;
 
+import com.example.toy1.domain.User;
 import com.example.toy1.dto.TokenDto;
 import com.example.toy1.dto.user.LoginRequestDto;
 import com.example.toy1.dto.user.SignUpRequestDto;
@@ -10,4 +11,5 @@ public interface UserService {
     boolean checkNickname(String nickname);
     boolean checkEmail(String email);
     TokenDto doLogin(LoginRequestDto loginDto);
+    User getMyInfo();
 }

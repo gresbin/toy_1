@@ -22,8 +22,8 @@ public class User {
     @Column(name = "uid")
     private Long uid;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "user_pw")
     private String pw;

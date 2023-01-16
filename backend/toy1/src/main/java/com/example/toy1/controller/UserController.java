@@ -57,8 +57,8 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success", response = Boolean.class)
     })
-    public ResponseEntity<Boolean> checkId(@PathVariable String userId) {
-        return new ResponseEntity<>(userService.checkId(userId), HttpStatus.OK);
+    public ResponseEntity<Boolean> checkId(@PathVariable String username) {
+        return new ResponseEntity<>(userService.checkId(username), HttpStatus.OK);
     }
 
     @GetMapping("/auth/check/email/{email}")
@@ -79,7 +79,9 @@ public class UserController {
         if(result.hasErrors()) {
             throw new InvalidParameterException(result);
         }
+        System.out.println("에러없음");
         TokenDto tokenDto = userService.doLogin(requestDto);
+        System.out.println("Dto 생성됨");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Auth", tokenDto.getAccessToken());
         headers.add("Refresh", tokenDto.getRefreshToken());

@@ -32,11 +32,9 @@ public class JwtFilter extends GenericFilterBean {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String jwt = resolveToken(httpServletRequest);
         String requestURI = httpServletRequest.getRequestURI();
-        System.out.println("정보 꺼내보자");
 
         // 유효성 검사 후 정상이면 Authentication을 SecurityContext에 저장
         if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-            System.out.println("성공했냐?");
             Authentication authentication = tokenProvider.getAuthentication(jwt);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             System.out.println("Security Context에 " + authentication.getName() + " 인증 정보를 저장했습니다. uri : " + requestURI);
@@ -49,6 +47,7 @@ public class JwtFilter extends GenericFilterBean {
     // Request Header에서 토큰 정보 꺼내기
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        System.out.println("bearerToken : "+bearerToken);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
             return bearerToken.substring(7);
         }

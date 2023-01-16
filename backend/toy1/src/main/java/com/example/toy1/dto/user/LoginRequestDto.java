@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @ApiModel(value = "LoginRequestDto", description = "로그인 요청 Dto")
 public class LoginRequestDto {
     @NotBlank
-    private String userId;
+    private String username;
     @NotBlank
     private String pw;
 }

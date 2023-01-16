@@ -33,7 +33,6 @@ public class Article {
     private LocalDateTime regDate;
 
     @Column(name = "up_date")
-    @CreatedDate
     private LocalDateTime upDate;
 
     @Column(name = "tag")
@@ -45,5 +44,6 @@ public class Article {
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_uid")
     private User user;
+
 
 }
