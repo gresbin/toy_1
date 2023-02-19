@@ -29,11 +29,10 @@ public class Article {
     private String content;
 
     @Column(name = "reg_date")
-    @CreatedDate
-    private LocalDateTime regDate;
+    private String regDate;
 
     @Column(name = "up_date")
-    private LocalDateTime upDate;
+    private String upDate;
 
     @Column(name = "tag")
     private ArticleTag tag;

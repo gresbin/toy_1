@@ -79,9 +79,7 @@ public class UserController {
         if(result.hasErrors()) {
             throw new InvalidParameterException(result);
         }
-        System.out.println("에러없음");
         TokenDto tokenDto = userService.doLogin(requestDto);
-        System.out.println("Dto 생성됨");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Auth", tokenDto.getAccessToken());
         headers.add("Refresh", tokenDto.getRefreshToken());

@@ -21,9 +21,9 @@ public class ArticleDto {
     public static ArticleDto from(Article article){
         String theDate;
         if( article.getUpDate() == null ){
-            theDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(article.getRegDate()).toString();
+            theDate = article.getRegDate();
         } else {
-            theDate = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(article.getUpDate()).toString();
+            theDate = article.getUpDate();
         }
 
         return ArticleDto.builder()
