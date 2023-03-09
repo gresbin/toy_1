@@ -60,7 +60,7 @@ public class ArticleController {
     @ApiResponses({
             @ApiResponse(code = 200, message = "Success",response = ArticleDto.class)
     })
-    public ResponseEntity<ArticleDto> getArticle(@PathVariable Long uid) {
+    public ResponseEntity<ArticleDto> getArticle(@PathVariable @ApiParam(value = "게시글 번호 uid",required = true) Long uid) {
         return new ResponseEntity<>(articleService.getArticle(uid), HttpStatus.OK);
     }
 }
