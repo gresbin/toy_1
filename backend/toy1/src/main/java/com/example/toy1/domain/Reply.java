@@ -36,4 +36,7 @@ public class Reply {
     @JoinColumn(name = "user_uid")
     private User user;
 
+    @ManyToOne(targetEntity = Article.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_uid")
+    private Article article;
 }
