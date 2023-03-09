@@ -4,6 +4,7 @@ import com.example.toy1.domain.Article;
 import com.example.toy1.domain.User;
 import com.example.toy1.dto.article.ArticleDto;
 import com.example.toy1.dto.article.ArticleRequestDto;
+import com.example.toy1.dto.exception.article.PostNotFoundException;
 import com.example.toy1.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,12 @@ public class ArticleServiceImpl implements ArticleService{
             }
 
         }
+    }
+
+    @Override
+    public ArticleDto getArticle(Long uid) {
+        Article article = articleRepository.findById(uid).orElseThrow(PostNotFoundException::new);
+
+        return ArticleDto.from(article);
     }
 }

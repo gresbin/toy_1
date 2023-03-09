@@ -54,4 +54,13 @@ public class ArticleController {
         articleService.updateArticle(uid, articleRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/article/{uid}")
+    @ApiOperation(value = "게시글 조회", notes = "게시글을 상세조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success",response = ArticleDto.class)
+    })
+    public ResponseEntity<ArticleDto> getArticle(@PathVariable Long uid) {
+        return new ResponseEntity<>(articleService.getArticle(uid), HttpStatus.OK);
+    }
 }
