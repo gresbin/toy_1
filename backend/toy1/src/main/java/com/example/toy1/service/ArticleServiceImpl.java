@@ -70,6 +70,15 @@ public class ArticleServiceImpl implements ArticleService{
     public ArticleDto getArticle(Long uid) {
         Article article = articleRepository.findById(uid).orElseThrow(PostNotFoundException::new);
 
+        article.viewed();
+        articleRepository.save(article);
+
         return ArticleDto.from(article);
+    }
+
+    @Override
+    public void deleteArticle(Long uid) {
+        Article article = articleRepository.findById(uid).orElseThrow(PostNotFoundException::new);
+        articleRepository.delete(article);
     }
 }

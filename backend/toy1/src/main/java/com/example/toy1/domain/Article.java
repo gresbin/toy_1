@@ -47,4 +47,8 @@ public class Article {
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Reply> replies;
+
+    public void viewed() {
+        this.view += 1;
+    }
 }
